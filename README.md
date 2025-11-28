@@ -36,6 +36,7 @@ For the analysis of these tests there are several options available
 * Sebastian provided a dashboard based on grafana/es entries with useful monitoring plots, see [example](https://os-atlas.cern.ch/dashboards/goto/7bf91b8a4328a6f7d1056172b7a80d89?security_tenant=global)
 * to get that dashboard for specific test you have to set suitable timerange and set filter to point it to corresponding test, e.g.
 field `destinationdblock.keyword` must be set to e.g. `hc_test.gangarbt.hc20322876.tid1313.LRZ-LMU.1`
+  * *Watch out to remove blanks before/after string!*
 * You can find the field for your test by looking for that parameter in a bigpanda joblog from that test
   * (and bigpanda joblog  you find from corresponding HC test page ([example](https://hammercloud.cern.ch/hc/app/atlas/test/20325020/)) -> Jobs -> Click `monitoring` for some job)
 * **watch out: joblogs are only kept for ~4 weeks**
