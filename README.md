@@ -2,9 +2,10 @@
 
 
 In this repo we collect recipes, scripts, notebooks for Hammercloud stress tests.
-In order to test and evaluate the performance of NHR sites (HPC centers in DE) compared to standard T2 sites we have put together an HC test template which executes a simple analysis job onphyslite DAOD data. It is an IO heavy application which should be reasonably representative for analysis or derivation tasks in ATLAS.
+In order to test and evaluate the performance of NHR sites (HPC centers in DE) compared to standard T2 sites we have put together an HC test template which executes a simple analysis job using physlite DAOD data. It is an IO heavy application which should be reasonably representative for analysis or derivation tasks in ATLAS. As typical for analysis jobs it reads only a sub-set of branches of the Root trees, corresponding to about 20-30% of the filesize (therefore direct-IO of the relevant branches is the preferred mode over copy-to-scratch of the whole file). 
 
-We have prepared a dedicated dataset for the tests: `user.gduck:data24_13p6TeV.physics_Main.deriv.DAOD_PHYSLITE.NHR_test_1` which had been replicated to several RSEs in DE:
+We have prepared a dedicated dataset for the tests: [`user.gduck:data24_13p6TeV.physics_Main.deriv.DAOD_PHYSLITE.NHR_test_1`](https://atlas-rucio-ui.cern.ch/did?scope=user.gduck&name=data24_13p6TeV.physics_Main.deriv.DAOD_PHYSLITE.NHR_test_1) consisting of data24_13p6TeV
+PHYSLITE files, in total 6748 files and 5.1 TB volume. This dataset had been replicated to several RSEs:
 ```
 rucio list-dataset-replicas user.gduck:data24_13p6TeV.physics_Main.deriv.DAOD_PHYSLITE.NHR_test_1
 
@@ -28,6 +29,7 @@ For the analysis of these tests there are several options available
 ### HC test start and monitoring
 * HC Stress tests are listed [here](https://hammercloud.cern.ch/hc/app/atlas/testlist/stress/)
 * [Instructions to start HC stress tests](https://docs.google.com/document/d/1RGQLAuJKtwqxY_Al6vYl1594OqKxzDqwYd4zn-jPhXo/edit?tab=t.0#heading=h.gyjfhbyjm5a)
+* One can modify a running test and change e.g. the number of running jobs during the test
 * Example of a recent [test at LRZ-LMU](https://hammercloud.cern.ch/hc/app/atlas/test/20325020/)
 * We keep track of major tests in **[shared table](https://cernbox.cern.ch/s/Kbn79hM2P1rAeva)**
   * *Please update!*  
@@ -52,8 +54,9 @@ field `destinationdblock.keyword` must be set to e.g. `hc_test.gangarbt.hc203228
 * you get the `$X509_` environment variables after ATLAS setup and `lsetup rucio`
 
 ### notebook for dCache billing log analysis
-* in case data was read from dCache RSE one can analyze the individual file transfers with jupyter notebook `AnalyzeTransfers.ipynb`
-* However, for that one needs admin access to the dCache system to  extract information from the dCache `billing logs`.
+* In case data was read from dCache RSE one can extract information from the dCache `billing logs` on individual file transfers
+  * However, this requires admin access to the dCache system .
+* The jupyter notebook `AnalyzeTransfers.ipynb` provides examples for the billing-log analysis 
 * Here example command used at LRZ-LMU to process billing log json file:
   ```
   cat /var/lib/dcache/billing/2025/11/billing-2025.11.17 | egrep 'DAOD_PHYSLITE.4363|DAOD_PHYSLITE.4193' | \\
