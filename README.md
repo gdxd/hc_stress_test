@@ -2,7 +2,9 @@
 
 
 In this repo we collect recipes, scripts, notebooks for Hammercloud stress tests.
-In order to test and evaluate the performance of NHR sites (HPC centers in DE) compared to standard T2 sites we have put together an HC test template which executes a simple analysis job using physlite DAOD data. It is an IO heavy application which should be reasonably representative for analysis or derivation tasks in ATLAS. As typical for analysis jobs it reads only a sub-set of branches of the Root trees, corresponding to about 20-30% of the filesize (therefore direct-IO of the relevant branches is the preferred mode over copy-to-scratch of the whole file). 
+In order to test and evaluate the performance of NHR sites (HPC centers in DE) compared to standard T2 sites we have put together an HC test template which executes a simple analysis job using physlite DAOD data. It is an IO heavy application which should be reasonably representative for analysis or derivation tasks in ATLAS 
+(see [source in gitlab](https://gitlab.cern.ch/hammercloud/hammercloud-atlas-inputfiles/-/blob/master/apps/atlas/inputfiles/templates/25.2.54/aft_2025/AnalysisTutorial/source/MyAnalysis/Root/MyxAODAnalysis.cxx?ref_type=heads)). 
+As typical for analysis jobs it reads only a sub-set of branches of the Root trees, corresponding to about 20-30% of the filesize (therefore direct-IO of the relevant branches is the preferred mode over copy-to-scratch of the whole file). 
 
 We have prepared a dedicated dataset for the tests: [`user.gduck:data24_13p6TeV.physics_Main.deriv.DAOD_PHYSLITE.NHR_test_1`](https://atlas-rucio-ui.cern.ch/did?scope=user.gduck&name=data24_13p6TeV.physics_Main.deriv.DAOD_PHYSLITE.NHR_test_1) consisting of data24_13p6TeV
 PHYSLITE files, in total 6748 files and 5.1 TB volume. This dataset had been replicated to several RSEs:
